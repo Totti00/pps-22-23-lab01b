@@ -13,13 +13,13 @@ class LogicsImplTest {
 
     @Test
     void checkSamePositionOfPawnAndKnight() {
-        this.logics = new LogicsImpl(SIZE);
+        this.logics = new LogicsImpl(SIZE, new KnightStrategy());
         assertNotEquals(this.logics.getPawn(), this.logics.getKnight());
     }
 
     @Test
     void checkExceptionHit() {
-        this.logics = new LogicsImpl(SIZE);
+        this.logics = new LogicsImpl(SIZE, new KnightStrategy());
         assertThrows(IndexOutOfBoundsException.class, () -> this.logics.hit(OUT_OF_BOUND_LESS_OF_MINIMUM, 0));
         assertThrows(IndexOutOfBoundsException.class, () -> this.logics.hit(0, OUT_OF_BOUND_LESS_OF_MINIMUM));
         assertThrows(IndexOutOfBoundsException.class, () -> this.logics.hit(OUT_OF_BOUND_GREATER_OF_MAXIMUM, 0));
@@ -28,9 +28,7 @@ class LogicsImplTest {
 
     @Test
     void checkHit() {
-        this.logics = new LogicsImpl(SIZE, new Pair<>(0, 0), new Pair<>(2, 1));
+        this.logics = new LogicsImpl(SIZE, new KnightStrategy(), new Pair<>(0, 0), new Pair<>(2, 1));
         assertTrue(this.logics.hit(2, 1));
     }
-
-
 }

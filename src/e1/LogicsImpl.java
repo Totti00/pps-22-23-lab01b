@@ -8,17 +8,20 @@ public class LogicsImpl implements Logics {
 	private Pair<Integer,Integer> knight;
 	private final Random random = new Random();
 	private final int size;
+	private final GameStrategy knightStrategy;
 	 
-    public LogicsImpl(int size){
+    public LogicsImpl(int size, GameStrategy knightStrategy){
     	this.size = size;
         this.pawn = this.randomEmptyPosition();
-        this.knight = this.randomEmptyPosition();	
+        this.knight = this.randomEmptyPosition();
+		this.knightStrategy = knightStrategy;
     }
 
-	protected LogicsImpl(int size, Pair<Integer, Integer> knight, Pair<Integer, Integer> pawn) {
+	protected LogicsImpl(int size, GameStrategy knightStrategy, Pair<Integer, Integer> knight, Pair<Integer, Integer> pawn) {
 		this.size = size;
 		this.pawn = pawn;
 		this.knight = knight;
+		this.knightStrategy = knightStrategy;
 	}
     
 	private final Pair<Integer,Integer> randomEmptyPosition(){
@@ -29,13 +32,11 @@ public class LogicsImpl implements Logics {
     
 	@Override
 	public boolean hit(int row, int col) {
-		if (row<0 || col<0 || row >= this.size || col >= this.size) {
-			throw new IndexOutOfBoundsException();
-		}
+		knightStrategy.isALegalMovement(row, col, size);
 		// Below a compact way to express allowed moves for the knight
 		int x = row-this.knight.getX();
 		int y = col-this.knight.getY();
-		if (x!=0 && y!=0 && Math.abs(x)+Math.abs(y)==3) {
+		if (knightStrategy.canDoMove(x, y)) {
 			this.knight = new Pair<>(row,col);
 			return this.pawn.equals(this.knight);
 		}
@@ -60,5 +61,9 @@ public class LogicsImpl implements Logics {
 	@Override
 	public Pair<Integer, Integer> getKnight() {
 		return knight;
+	}
+
+	public int getSize() {
+		return size;
 	}
 }
