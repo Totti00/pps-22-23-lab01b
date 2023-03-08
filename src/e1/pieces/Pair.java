@@ -1,13 +1,16 @@
-package e1;
+package e1.pieces;
 
 /*
  * A standard generic Pair<X,Y>, with getters, hashCode, equals, and toString well implemented. 
  */
 
+import java.util.Random;
+
 public class Pair<X,Y> {
-	
-	private final X x;
-	private final Y y;
+	private Pair<Integer, Integer> pawn;
+	private final Random random = new Random();
+	private X x;
+	private Y y;
 	
 	public Pair(X x, Y y) {
 		super();
@@ -21,6 +24,15 @@ public class Pair<X,Y> {
 
 	public Y getY() {
 		return y;
+	}
+
+	public void setPos(Pair<X, Y> newPos) {
+		this.x = newPos.getX();
+		this.y = newPos.getY();
+	}
+
+	private void setPawn(Pair<Integer, Integer> pawn) {
+		if (this.pawn == null) this.pawn = pawn;
 	}
 
 	@Override
@@ -60,4 +72,10 @@ public class Pair<X,Y> {
 		return "Pair [x=" + x + ", y=" + y + "]";
 	}
 
+	public final Pair<Integer,Integer> randomEmptyPosition(Integer size){
+		Pair<Integer,Integer> pos = new Pair<>(this.random.nextInt(size),this.random.nextInt(size));
+		this.setPawn(pos);
+		// the recursive call below prevents clash with an existing pawn
+		return this.pawn!=null && this.pawn.equals(pos) ? randomEmptyPosition(size) : pos;
+	}
 }

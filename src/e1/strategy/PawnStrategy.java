@@ -1,7 +1,6 @@
 package e1.strategy;
 
-import e1.Pair;
-import e1.strategy.GameStrategy;
+import e1.pieces.Pair;
 
 public class PawnStrategy implements GameStrategy {
 

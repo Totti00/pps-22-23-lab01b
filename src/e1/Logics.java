@@ -1,5 +1,7 @@
 package e1;
 
+import e1.pieces.Pair;
+
 public interface Logics{
     
     /**

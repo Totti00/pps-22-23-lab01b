@@ -1,6 +1,6 @@
 package e1.strategy;
 
-import e1.Pair;
+import e1.pieces.Pair;
 
 public interface GameStrategy {
 

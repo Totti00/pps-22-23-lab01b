@@ -2,8 +2,8 @@ package e1;
 
 import e1.factory.GameFactory;
 import e1.factory.GameFactoryImpl;
+import e1.pieces.Pair;
 import e1.strategy.GameStrategy;
-import e1.strategy.KnightStrategy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

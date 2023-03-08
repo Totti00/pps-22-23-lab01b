@@ -2,6 +2,7 @@ package e1;
 
 import e1.factory.GameFactory;
 import e1.factory.GameFactoryImpl;
+import e1.pieces.Pair;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -11,9 +12,7 @@ class LogicsImplTest {
     public static final int OUT_OF_BOUND_LESS_OF_MINIMUM = -1;
     public static final int OUT_OF_BOUND_GREATER_OF_MAXIMUM = 600;
     private Logics logics;
-    private final Pair<Integer, Integer> posKnight = new Pair<>(0, 0);
-    private final Pair<Integer, Integer> posPawn = new Pair<>(2, 1);
-    private GameFactory factory = new GameFactoryImpl();
+    private final GameFactory factory = new GameFactoryImpl();
 
     @Test
     void checkSamePositionOfPawnAndKnight() {
@@ -32,6 +31,8 @@ class LogicsImplTest {
 
     @Test
     void checkHit() {
+        final Pair<Integer, Integer> posKnight = new Pair<>(0, 0);
+        final Pair<Integer, Integer> posPawn = new Pair<>(2, 1);
         this.logics = new LogicsImpl(SIZE, factory, posKnight, posPawn);
         assertTrue(this.logics.hit(2, 1));
     }
