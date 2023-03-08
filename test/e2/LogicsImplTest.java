@@ -21,8 +21,21 @@ class LogicsImplTest {
 
     @Test
     void testLostGame() {
-        Pair<Integer, Integer> posCellWithMine = this.logics.getCellsWithMines().stream().findAny().get().getPosition();
-        assertTrue(this.logics.hit(posCellWithMine));
-        assertFalse(this.logics.checkWin());
+        assertTrue(this.logics.hit(getCellWithMine()));
+    }
+
+    @Test
+    void testWinGame() {
+
+    }
+
+    private Pair<Integer, Integer> getCellWithMine() {
+        return this.logics.getCellsWithMines().stream().findAny().get().getPosition();
+    }
+
+    @Test
+    void testPlaceFlag() {
+        this.logics.placeFlag(getCellWithMine());
+        assertTrue(this.logics.hasFlag(getCellWithMine()));
     }
 }

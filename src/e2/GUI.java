@@ -88,18 +88,17 @@ public class GUI extends JFrame {
             if (this.logics.hasFlag(pos)) {
                 bt.setText("F");
             } else {
-                final int count = this.logics.getCellsWithMines().stream().filter(c -> c.getPosition().isNear(pos)).mapToInt(c -> 1).sum();
-                if (count > 0) {
-                    bt.setText(String.valueOf(count));
-                } else {
-                    bt.setText(" ");
-                }
+//                final int count = this.logics.getCellsWithMines().stream().filter(c -> c.getPosition().isNear(pos)).mapToInt(c -> 1).sum();
+//                if (count > 0) {
+//                    bt.setText(String.valueOf(count));
+//                } else {
+//                    bt.setText(" ");
+//                }
             }
         }
             // call the logic here
             // if this button is a cell with counter, put the number
             // if this button has a flag, put the flag
-    	}
     }
     
 }
