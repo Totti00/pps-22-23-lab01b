@@ -1,7 +1,6 @@
 package e1.factory;
 
-import e1.strategy.KnightStrategy;
-import e1.strategy.PawnStrategy;
+import e1.strategy.*;
 
 public class GameFactoryImpl implements GameFactory {
     @Override

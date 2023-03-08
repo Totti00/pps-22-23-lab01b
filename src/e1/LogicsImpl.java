@@ -11,26 +11,26 @@ public class LogicsImpl implements Logics {
 	private final Pawn pawn;
 	private final Knight knight;
 	private final int size;
-	private final GameStrategy knightStrategy;
+	private final GameStrategy strategy;
 
 	public LogicsImpl(int size, GameFactory factory){
     	this.size = size;
 		Pair<Integer, Integer> support = new Pair<>(0, 0);
 		this.pawn = new Pawn(support.randomEmptyPosition(this.size));
         this.knight = new Knight(support.randomEmptyPosition(this.size));
-		this.knightStrategy = factory.createKnightStrategy();
+		this.strategy = factory.createKnightStrategy();
     }
 
 	protected LogicsImpl(int size, GameFactory factory, Pair<Integer, Integer> knight, Pair<Integer, Integer> pawn) {
 		this.size = size;
 		this.pawn = new Pawn(pawn);
 		this.knight = new Knight(knight);
-		this.knightStrategy = factory.createKnightStrategy();
+		this.strategy = factory.createKnightStrategy();
 	}
 
 	@Override
 	public boolean hit(int row, int col) {
-		if (this.knightStrategy.canMove(new Pair<>(row, col), size, this.knight)) {
+		if (this.strategy.canMove(new Pair<>(row, col), size, this.knight)) {
 			this.knight.setPos(new Pair<>(row,col));
 			return this.pawn.equals(this.knight);
 		}

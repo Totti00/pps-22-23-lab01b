@@ -72,7 +72,7 @@ public class Pair<X,Y> {
 		return "Pair [x=" + x + ", y=" + y + "]";
 	}
 
-	public final Pair<Integer,Integer> randomEmptyPosition(Integer size){
+	public final Pair<Integer,Integer> randomEmptyPosition(int size){
 		Pair<Integer,Integer> pos = new Pair<>(this.random.nextInt(size),this.random.nextInt(size));
 		this.setPawn(pos);
 		// the recursive call below prevents clash with an existing pawn
