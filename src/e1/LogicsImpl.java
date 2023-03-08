@@ -1,5 +1,8 @@
 package e1;
 
+import e1.factory.GameFactory;
+import e1.strategy.GameStrategy;
+
 import java.util.*;
 
 public class LogicsImpl implements Logics {
@@ -9,19 +12,19 @@ public class LogicsImpl implements Logics {
 	private final Random random = new Random();
 	private final int size;
 	private final GameStrategy knightStrategy;
-	 
-    public LogicsImpl(int size, GameStrategy knightStrategy){
+
+    public LogicsImpl(int size, GameFactory factory){
     	this.size = size;
         this.pawn = this.randomEmptyPosition();
         this.knight = this.randomEmptyPosition();
-		this.knightStrategy = knightStrategy;
+		this.knightStrategy = factory.createKnightStrategy();
     }
 
-	protected LogicsImpl(int size, GameStrategy knightStrategy, Pair<Integer, Integer> knight, Pair<Integer, Integer> pawn) {
+	protected LogicsImpl(int size, GameFactory factory, Pair<Integer, Integer> knight, Pair<Integer, Integer> pawn) {
 		this.size = size;
 		this.pawn = pawn;
 		this.knight = knight;
-		this.knightStrategy = knightStrategy;
+		this.knightStrategy = factory.createKnightStrategy();
 	}
     
 	private final Pair<Integer,Integer> randomEmptyPosition(){
@@ -32,11 +35,7 @@ public class LogicsImpl implements Logics {
     
 	@Override
 	public boolean hit(int row, int col) {
-		knightStrategy.isALegalMovement(row, col, size);
-		// Below a compact way to express allowed moves for the knight
-		int x = row-this.knight.getX();
-		int y = col-this.knight.getY();
-		if (knightStrategy.canDoMove(x, y)) {
+		if (this.knightStrategy.canMove(new Pair<>(row, col), size, this.knight)) {
 			this.knight = new Pair<>(row,col);
 			return this.pawn.equals(this.knight);
 		}
@@ -61,9 +60,5 @@ public class LogicsImpl implements Logics {
 	@Override
 	public Pair<Integer, Integer> getKnight() {
 		return knight;
-	}
-
-	public int getSize() {
-		return size;
 	}
 }

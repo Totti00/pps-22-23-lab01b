@@ -1,5 +1,9 @@
 package e1;
 
+import e1.factory.GameFactory;
+import e1.factory.GameFactoryImpl;
+import e1.strategy.GameStrategy;
+import e1.strategy.KnightStrategy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -7,34 +11,26 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class KnightStrategyTest {
 
-    private GameStrategy gameStrategy;
+    public static final int SIZE = 500;
+    private GameStrategy strategy;
 
     @BeforeEach
     void setUp() {
-        this.gameStrategy = new KnightStrategy();
+        GameFactory factory = new GameFactoryImpl();
+        this.strategy = factory.createKnightStrategy();
     }
 
     @Test
     void checkCanMove() {
-        assertTrue(this.gameStrategy.canDoMove(1, 2));
-        assertTrue(this.gameStrategy.canDoMove(2, 1));
-        assertTrue(this.gameStrategy.canDoMove(-1, 2));
-        assertTrue(this.gameStrategy.canDoMove(-2, 1));
+        assertTrue(this.strategy.canMove(new Pair<>(5, 2), SIZE, new Pair<>(4, 4)));
+        assertTrue(this.strategy.canMove(new Pair<>(2, 1), SIZE, new Pair<>(0, 0)));
     }
 
     @Test
     void checkCanNotMove() {
-        assertFalse(this.gameStrategy.canDoMove(0, 0));
-        assertFalse(this.gameStrategy.canDoMove(4, 1));
-        assertFalse(this.gameStrategy.canDoMove(0, 5));
-        assertFalse(this.gameStrategy.canDoMove(2, 3));
-    }
-
-    @Test
-    void isALegalMovement() {
-        assertThrows(IndexOutOfBoundsException.class, () -> this.gameStrategy.isALegalMovement(-1, 0, 500));
-        assertThrows(IndexOutOfBoundsException.class, () -> this.gameStrategy.isALegalMovement(0, -1, 500));
-        assertThrows(IndexOutOfBoundsException.class, () -> this.gameStrategy.isALegalMovement(500, 0, 500));
-        assertThrows(IndexOutOfBoundsException.class, () -> this.gameStrategy.isALegalMovement(0, 500, 500));
+        assertFalse(this.strategy.canMove(new Pair<>(0, 0), SIZE, new Pair<>(0, 0)));
+        assertFalse(this.strategy.canMove(new Pair<>(4, 1), SIZE, new Pair<>(0, 0)));
+        assertThrows(IndexOutOfBoundsException.class, () -> this.strategy.canMove(new Pair<>(-1, 5), SIZE, new Pair<>(0, 0)));
+        assertThrows(IndexOutOfBoundsException.class, () -> this.strategy.canMove(new Pair<>(2, -3), SIZE, new Pair<>(0, 0)));
     }
 }

@@ -1,5 +1,7 @@
 package e1;
 
+import e1.factory.GameFactoryImpl;
+
 import javax.swing.*;
 import java.util.*;
 import java.util.Map.Entry;
@@ -14,7 +16,7 @@ public class GUI extends JFrame {
     private final static int SIZE = 5;
     
     public GUI() {
-        this.logics = new LogicsImpl(SIZE, new KnightStrategy());
+        this.logics = new LogicsImpl(SIZE, new GameFactoryImpl());
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setSize(100*SIZE, 100*SIZE);
         
