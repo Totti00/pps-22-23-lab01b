@@ -22,4 +22,25 @@ public class LogicsImpl implements Logics {
     public Set<Cell> getCellsWithMines() {
         return this.grid.listOfCellsWithMines();
     }
+
+    @Override
+    public boolean hit(Pair<Integer, Integer> positionCell) {
+        if (!(positionCell.getX() < 0 || positionCell.getX() >= this.size || positionCell.getY() < 0 || positionCell.getY() >= this.size)) {
+            if (this.grid.canBeHit(positionCell)) {
+                this.grid.hit(positionCell);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean checkWin() {
+        return this.grid.isWinner();
+    }
+
+    @Override
+    public boolean checkLost() {
+        return this.grid.isLoser();
+    }
 }

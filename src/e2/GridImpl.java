@@ -1,7 +1,6 @@
 package e2;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -9,6 +8,7 @@ import java.util.stream.IntStream;
 public class GridImpl implements Grid {
     private final int size;
     private final Set<Cell> cells = new HashSet<>();
+    private boolean gameFinshed;
 
     public GridImpl(int size) {
         this.size = size;
@@ -32,17 +32,36 @@ public class GridImpl implements Grid {
 
     @Override
     public Set<Cell> listOfCellsWithMines() {
-        prova();                                                                //DEBITO TECNICO
         return this.cells.stream().filter(Cell::hasMine).collect(Collectors.toSet());
     }
 
+    @Override
+    public boolean canBeHit(Pair<Integer, Integer> positionCell) {
+        Cell cell = getPositionCell(positionCell);
+        if (cell != null)
+            return cell.canBeHit();
+        return false;
+    }
 
+    @Override
+    public void hit(Pair<Integer, Integer> positionCell) {
+        Cell cell = getPositionCell(positionCell);
+        cell.hit();
+        if (cell.hasMine())
+            gameFinshed = true;
+    }
 
+    @Override
+    public boolean isWinner() {
+        return this.cells.stream().noneMatch(Cell::hasMine);
+    }
 
+    @Override
+    public boolean isLoser() {
+        return gameFinshed;
+    }
 
-    private void prova() {
-        this.cells.stream().filter(Cell::hasMine).forEach(cell -> {
-            System.out.println("La posizione è x: " + cell.getPosition().getX() + " e y: " + cell.getPosition().getY());
-        });
+    private Cell getPositionCell(Pair<Integer, Integer> positionCell) {
+        return this.cells.stream().filter(c -> c.getPosition().equals(positionCell)).findAny().orElse(null);
     }
 }

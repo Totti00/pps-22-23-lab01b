@@ -6,4 +6,8 @@ public interface Cell {
     void setMine();
 
     Pair<Integer, Integer> getPosition();
+
+    boolean canBeHit();
+
+    void hit();
 }

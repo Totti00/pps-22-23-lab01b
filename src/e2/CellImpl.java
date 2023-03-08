@@ -2,9 +2,11 @@ package e2;
 
 public class CellImpl implements Cell {
     private final Pair<Integer, Integer> posCell;
+    private boolean canBeHit;
     private boolean hasMine;
 
     public CellImpl(Pair<Integer, Integer> posCell) {
+        this.canBeHit = true;
         this.posCell = posCell;
     }
 
@@ -21,5 +23,16 @@ public class CellImpl implements Cell {
     @Override
     public Pair<Integer, Integer> getPosition() {
         return this.posCell;
+    }
+
+    @Override
+    public boolean canBeHit() {
+        //se ha la bandierina non può essere colpito
+        return this.canBeHit;
+    }
+
+    @Override
+    public void hit() {
+        this.canBeHit = false;
     }
 }

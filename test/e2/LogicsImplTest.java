@@ -19,9 +19,11 @@ class LogicsImplTest {
         assertEquals(5, this.logics.getCellsWithMines().size());
     }
 
-//    @Test
-//    void testLostGame() {
-//        int posCellWithMine =
-//        assertTrue(this.logics.hit());
-//    }
+    @Test
+    void testLostGame() {
+        Pair<Integer, Integer> posCellWithMine = this.logics.getCellsWithMines().stream().findAny().get().getPosition();
+        assertTrue(this.logics.hit(posCellWithMine));
+        assertFalse(this.logics.checkWin());
+        assertTrue(this.logics.checkLost());
+    }
 }
