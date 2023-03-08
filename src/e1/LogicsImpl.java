@@ -6,20 +6,18 @@ import e1.pieces.Pair;
 import e1.pieces.Pawn;
 import e1.strategy.GameStrategy;
 
-import java.util.*;
-
 public class LogicsImpl implements Logics {
 	
 	private final Pawn pawn;
 	private final Knight knight;
 	private final int size;
 	private final GameStrategy knightStrategy;
-	private final Pair<Integer, Integer> support = new Pair<>(0, 0);
 
-    public LogicsImpl(int size, GameFactory factory){
+	public LogicsImpl(int size, GameFactory factory){
     	this.size = size;
-        this.pawn = new Pawn(this.support.randomEmptyPosition(this.size));
-        this.knight = new Knight(this.support.randomEmptyPosition(this.size));
+		Pair<Integer, Integer> support = new Pair<>(0, 0);
+		this.pawn = new Pawn(support.randomEmptyPosition(this.size));
+        this.knight = new Knight(support.randomEmptyPosition(this.size));
 		this.knightStrategy = factory.createKnightStrategy();
     }
 
