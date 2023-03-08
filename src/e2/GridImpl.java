@@ -8,7 +8,6 @@ import java.util.stream.IntStream;
 public class GridImpl implements Grid {
     private final int size;
     private final Set<Cell> cells = new HashSet<>();
-    private boolean gameFinshed;
 
     public GridImpl(int size) {
         this.size = size;
@@ -47,8 +46,6 @@ public class GridImpl implements Grid {
     public void hit(Pair<Integer, Integer> positionCell) {
         Cell cell = getPositionCell(positionCell);
         cell.hit();
-        if (cell.hasMine())
-            gameFinshed = true;
     }
 
     @Override
@@ -57,11 +54,29 @@ public class GridImpl implements Grid {
     }
 
     @Override
-    public boolean isLoser() {
-        return gameFinshed;
+    public boolean hasMine(Pair<Integer, Integer> positionCell) {
+        return getPositionCell(positionCell).hasMine();
     }
+
+    @Override
+    public boolean hasFlag(Pair<Integer, Integer> posCell) {
+        return getPositionCell(posCell).hasFlag();
+    }
+
+    @Override
+    public void removeFlag(Pair<Integer, Integer> pos) {
+        getPositionCell(pos).removeFlag();
+    }
+
+    @Override
+    public void placeFlag(Pair<Integer, Integer> pos) {
+        getPositionCell(pos).placeFlag();
+    }
+
 
     private Cell getPositionCell(Pair<Integer, Integer> positionCell) {
         return this.cells.stream().filter(c -> c.getPosition().equals(positionCell)).findAny().orElse(null);
     }
+
+
 }

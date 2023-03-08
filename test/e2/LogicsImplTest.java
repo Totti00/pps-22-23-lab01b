@@ -24,6 +24,5 @@ class LogicsImplTest {
         Pair<Integer, Integer> posCellWithMine = this.logics.getCellsWithMines().stream().findAny().get().getPosition();
         assertTrue(this.logics.hit(posCellWithMine));
         assertFalse(this.logics.checkWin());
-        assertTrue(this.logics.checkLost());
     }
 }

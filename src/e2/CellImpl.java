@@ -4,6 +4,7 @@ public class CellImpl implements Cell {
     private final Pair<Integer, Integer> posCell;
     private boolean canBeHit;
     private boolean hasMine;
+    private boolean hasFlag;
 
     public CellImpl(Pair<Integer, Integer> posCell) {
         this.canBeHit = true;
@@ -34,5 +35,20 @@ public class CellImpl implements Cell {
     @Override
     public void hit() {
         this.canBeHit = false;
+    }
+
+    @Override
+    public boolean hasFlag() {
+        return hasFlag;
+    }
+
+    @Override
+    public void removeFlag() {
+        this.hasFlag = false;
+    }
+
+    @Override
+    public void placeFlag() {
+        this.hasFlag = true;
     }
 }

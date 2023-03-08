@@ -10,4 +10,10 @@ public interface Cell {
     boolean canBeHit();
 
     void hit();
+
+    boolean hasFlag();
+
+    void removeFlag();
+
+    void placeFlag();
 }

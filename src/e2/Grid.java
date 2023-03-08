@@ -13,5 +13,11 @@ public interface Grid {
 
     boolean isWinner();
 
-    boolean isLoser();
+    boolean hasMine(Pair<Integer, Integer> positionCell);
+
+    boolean hasFlag(Pair<Integer, Integer> posCell);
+
+    void removeFlag(Pair<Integer, Integer> pos);
+
+    void placeFlag(Pair<Integer, Integer> pos);
 }

@@ -26,10 +26,10 @@ public class LogicsImpl implements Logics {
     @Override
     public boolean hit(Pair<Integer, Integer> positionCell) {
         if (!(positionCell.getX() < 0 || positionCell.getX() >= this.size || positionCell.getY() < 0 || positionCell.getY() >= this.size)) {
-            if (this.grid.canBeHit(positionCell)) {
-                this.grid.hit(positionCell);
+            if (this.grid.hasMine(positionCell)) {
                 return true;
             }
+            this.grid.hit(positionCell);
         }
         return false;
     }
@@ -40,7 +40,19 @@ public class LogicsImpl implements Logics {
     }
 
     @Override
-    public boolean checkLost() {
-        return this.grid.isLoser();
+    public boolean hasFlag(Pair<Integer, Integer> posCell) {
+        return this.grid.hasFlag(posCell);
     }
+
+    @Override
+    public void removeFlag(Pair<Integer, Integer> pos) {
+        this.grid.removeFlag(pos);
+    }
+
+    @Override
+    public void placeFlag(Pair<Integer, Integer> pos) {
+        this.grid.placeFlag(pos);
+    }
+
+
 }
