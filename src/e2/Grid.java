@@ -11,8 +11,6 @@ public interface Grid {
 
     void hit(Pair<Integer, Integer> positionCell);
 
-    boolean isWinner();
-
     boolean hasMine(Pair<Integer, Integer> positionCell);
 
     boolean hasFlag(Pair<Integer, Integer> posCell);
@@ -20,4 +18,10 @@ public interface Grid {
     void removeFlag(Pair<Integer, Integer> pos);
 
     void placeFlag(Pair<Integer, Integer> pos);
+
+    Set<Cell> getCells();
+
+    int getNumberOfAdjacentMines(Pair<Integer, Integer> posButton);
+
+    Set<Cell> getAdjacentCells(Pair<Integer, Integer> pos);
 }

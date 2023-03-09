@@ -49,11 +49,6 @@ public class GridImpl implements Grid {
     }
 
     @Override
-    public boolean isWinner() {
-        return this.cells.stream().noneMatch(Cell::hasMine);
-    }
-
-    @Override
     public boolean hasMine(Pair<Integer, Integer> positionCell) {
         return getPositionCell(positionCell).hasMine();
     }
@@ -78,5 +73,19 @@ public class GridImpl implements Grid {
         return this.cells.stream().filter(c -> c.getPosition().equals(positionCell)).findAny().orElse(null);
     }
 
+    @Override
+    public Set<Cell> getCells() {
+        return this.cells;
+    }
+
+    @Override
+    public int getNumberOfAdjacentMines(Pair<Integer, Integer> posButton) {
+        return (int) (this.cells.stream().filter(cell -> cell.hasMine() && cell.isAdjacent(posButton)).count());
+    }
+
+    @Override
+    public Set<Cell> getAdjacentCells(Pair<Integer, Integer> pos) {
+        return this.cells.stream().filter(cell -> cell.isAdjacent(pos)).collect(Collectors.toSet());
+    }
 
 }

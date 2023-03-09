@@ -16,4 +16,12 @@ public interface Cell {
     void removeFlag();
 
     void placeFlag();
+
+    boolean isHit();
+
+    boolean isAdjacent(Pair<Integer, Integer> posButton);
+
+    void incrementAdjacentMines();
+
+    int getAdjacentMines();
 }

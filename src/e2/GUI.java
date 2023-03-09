@@ -85,15 +85,20 @@ public class GUI extends JFrame {
         for (var entry: this.buttons.entrySet()) {
             final JButton bt = entry.getKey();
             final Pair<Integer,Integer> pos = entry.getValue();
-            if (this.logics.hasFlag(pos)) {
+            if (this.logics.hasFlag(pos) && bt.isEnabled()) {
                 bt.setText("F");
-            } else {
-//                final int count = this.logics.getCellsWithMines().stream().filter(c -> c.getPosition().isNear(pos)).mapToInt(c -> 1).sum();
-//                if (count > 0) {
-//                    bt.setText(String.valueOf(count));
-//                } else {
-//                    bt.setText(" ");
-//                }
+            } else if (!this.logics.hasFlag(pos) && bt.isEnabled()) {
+                bt.setText(" ");
+            } else if (!bt.isEnabled() && bt.getText().equals(" ")){
+                final int numberOfAdjacentMines = this.logics.getAdjacentCells(pos).stream().filter(Cell::hasMine).toArray().length;
+                bt.setText(String.valueOf(numberOfAdjacentMines));
+                if (numberOfAdjacentMines == 0) {
+                    this.logics.getAdjacentCells(pos).forEach( cell -> {
+                            this.logics.hit(cell.getPosition());
+                            this.buttons.entrySet().stream().filter(entry2 -> entry2.getValue().equals(cell.getPosition())).forEach(entry2 -> entry2.getKey().setEnabled(false));
+                    });
+                    drawBoard();
+                }
             }
         }
             // call the logic here

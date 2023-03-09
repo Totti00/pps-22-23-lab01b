@@ -36,7 +36,9 @@ public class LogicsImpl implements Logics {
 
     @Override
     public boolean checkWin() {
-        return this.grid.isWinner();
+        return this.grid.getCells().stream().filter(cell -> cell.hasMine() && !cell.isHit()).count() +
+                this.grid.getCells().stream().filter(cell -> !cell.hasMine() && cell.isHit()).count() == this.getCells().size();
+
     }
 
     @Override
@@ -54,5 +56,14 @@ public class LogicsImpl implements Logics {
         this.grid.placeFlag(pos);
     }
 
+    @Override
+    public Set<Cell> getCells() {
+        return this.grid.getCells();
+    }
+
+    @Override
+    public Set<Cell> getAdjacentCells(Pair<Integer, Integer> pos) {
+        return this.grid.getAdjacentCells(pos);
+    }
 
 }
