@@ -4,8 +4,8 @@ import java.util.Set;
 
 public class LogicsImpl implements Logics {
 
-    private int size;
-    private Grid grid;
+    private final int size;
+    private final Grid grid;
 
 
     public LogicsImpl(int size) {

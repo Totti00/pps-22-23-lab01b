@@ -24,8 +24,8 @@ public class GridImpl implements Grid {
 
     @Override
     public void placeMines(int mines) {
-        IntStream.range(0, mines).forEach(i -> {
-            this.cells.stream().filter(cell -> !cell.hasMine()).skip((int) (cells.size() * Math.random())).findFirst().ifPresent(Cell::setMine);
+        IntStream.range(0, mines).map(i -> i + 1).forEach(i -> {
+            this.cells.stream().filter(cell -> !cell.hasMine()).skip((int) (cells.size() / 2 * Math.random())).findFirst().ifPresent(Cell::setMine);
         });
     }
 
@@ -36,8 +36,7 @@ public class GridImpl implements Grid {
 
     @Override
     public void hit(Pair<Integer, Integer> positionCell) {
-        Cell cell = getPositionCell(positionCell);
-        cell.hit();
+        getPositionCell(positionCell).hit();
     }
 
     @Override
@@ -59,7 +58,6 @@ public class GridImpl implements Grid {
     public void placeFlag(Pair<Integer, Integer> pos) {
         getPositionCell(pos).placeFlag();
     }
-
 
     private Cell getPositionCell(Pair<Integer, Integer> positionCell) {
         return this.cells.stream().filter(c -> c.getPosition().equals(positionCell)).findAny().orElse(null);

@@ -47,4 +47,13 @@ class LogicsImplTest {
         this.logics.removeFlag(getCellWithMine());
         assertFalse(this.logics.hasFlag(getCellWithMine()));
     }
+
+    @Test
+    void testCanHit() {
+        assertTrue(this.logics.hit(getCellWithMine()));
+        assertFalse(this.logics.hit(new Pair<>(-1, 0)));
+        assertFalse(this.logics.hit(new Pair<>(0, -1)));
+        assertFalse(this.logics.hit(new Pair<>(6, 0)));
+        assertFalse(this.logics.hit(new Pair<>(0, 6)));
+    }
 }
