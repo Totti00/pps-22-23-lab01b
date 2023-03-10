@@ -2,24 +2,28 @@ package e2;
 
 public class CellImpl implements Cell {
     private final Pair<Integer, Integer> posCell;
+    private CellType type;
     private boolean canBeHit;
-    private boolean hasMine;
-    private boolean hasFlag;
-    private int counterAdjacentMines;
 
-    public CellImpl(Pair<Integer, Integer> posCell) {
+    public CellImpl(Pair<Integer, Integer> posCell, CellType type) {
         this.canBeHit = true;
         this.posCell = posCell;
+        this.type = type;
     }
 
     @Override
     public boolean hasMine() {
-        return this.hasMine;
+        return this.getType().equals(CellType.MINE);
+    }
+
+    @Override
+    public CellType getType() {
+        return this.type;
     }
 
     @Override
     public void setMine() {
-        this.hasMine = true;
+        this.type = CellType.MINE;
     }
 
     @Override
@@ -29,7 +33,6 @@ public class CellImpl implements Cell {
 
     @Override
     public boolean canBeHit() {
-        //se ha la bandierina non può essere colpito
         return this.canBeHit;
     }
 
@@ -40,37 +43,29 @@ public class CellImpl implements Cell {
 
     @Override
     public boolean hasFlag() {
-        return hasFlag;
+        return this.type.equals(CellType.FLAG_EMPTY) || this.type.equals(CellType.FLAG_MINE);
     }
 
     @Override
     public void removeFlag() {
-        this.hasFlag = false;
+        //this.type.equals(CellType.FLAG_MINE) ? this.type = CellType.MINE : this.type = CellType.EMPTY;
+        switch (this.type) {
+            case FLAG_MINE -> this.type = CellType.MINE;
+            case FLAG_EMPTY -> this.type = CellType.EMPTY;
+        }
     }
 
     @Override
     public void placeFlag() {
-        this.hasFlag = true;
-    }
-
-    @Override
-    public boolean isHit() {
-        return !this.canBeHit;
+        switch (this.type) {
+            case MINE -> this.type = CellType.FLAG_MINE;
+            case EMPTY -> this.type = CellType.FLAG_EMPTY;
+        }
     }
 
     @Override
     public boolean isAdjacent(Pair<Integer, Integer> posButton) {
         return (Math.abs(this.posCell.getX() - posButton.getX()) <= 1 && Math.abs(this.posCell.getY() - posButton.getY()) <= 1
                 && !(this.posCell.getX().equals(posButton.getX()) && this.posCell.getY().equals(posButton.getY())));
-    }
-
-    @Override
-    public void incrementAdjacentMines() {
-        this.counterAdjacentMines = this.counterAdjacentMines + 1;
-    }
-
-    @Override
-    public int getAdjacentMines() {
-        return this.counterAdjacentMines;
     }
 }

@@ -17,7 +17,7 @@ public class GridImpl implements Grid {
     private void initializeCells() {
         IntStream.range(0, this.size).forEach(i -> {
             IntStream.range(0, this.size).forEach(j -> {
-                this.cells.add(new CellImpl(new Pair<>(i, j)));
+                this.cells.add(new CellImpl(new Pair<>(i, j), CellType.EMPTY));
             });
         });
     }
@@ -25,21 +25,13 @@ public class GridImpl implements Grid {
     @Override
     public void placeMines(int mines) {
         IntStream.range(0, mines).forEach(i -> {
-            this.cells.stream().filter(cell -> !cell.hasMine()).skip((int) (cells.size() * Math.random())).findAny().ifPresent(Cell::setMine);
+            this.cells.stream().filter(cell -> !cell.hasMine()).skip((int) (cells.size() * Math.random())).findFirst().ifPresent(Cell::setMine);
         });
     }
 
     @Override
     public Set<Cell> listOfCellsWithMines() {
         return this.cells.stream().filter(Cell::hasMine).collect(Collectors.toSet());
-    }
-
-    @Override
-    public boolean canBeHit(Pair<Integer, Integer> positionCell) {
-        Cell cell = getPositionCell(positionCell);
-        if (cell != null)
-            return cell.canBeHit();
-        return false;
     }
 
     @Override
@@ -76,11 +68,6 @@ public class GridImpl implements Grid {
     @Override
     public Set<Cell> getCells() {
         return this.cells;
-    }
-
-    @Override
-    public int getNumberOfAdjacentMines(Pair<Integer, Integer> posButton) {
-        return (int) (this.cells.stream().filter(cell -> cell.hasMine() && cell.isAdjacent(posButton)).count());
     }
 
     @Override

@@ -36,8 +36,9 @@ class LogicsImplTest {
 
     @Test
     void testPlaceFlag() {
-        this.logics.placeFlag(getCellWithMine());
-        assertTrue(this.logics.hasFlag(getCellWithMine()));
+        Pair<Integer, Integer> posCell = getCellWithMine();
+        this.logics.placeFlag(posCell);
+        assertTrue(this.logics.hasFlag(posCell));
     }
 
     @Test

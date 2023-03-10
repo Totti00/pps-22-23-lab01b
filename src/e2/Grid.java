@@ -7,8 +7,6 @@ public interface Grid {
 
     Set<Cell> listOfCellsWithMines();
 
-    boolean canBeHit(Pair<Integer, Integer> positionCell);
-
     void hit(Pair<Integer, Integer> positionCell);
 
     boolean hasMine(Pair<Integer, Integer> positionCell);
@@ -20,8 +18,6 @@ public interface Grid {
     void placeFlag(Pair<Integer, Integer> pos);
 
     Set<Cell> getCells();
-
-    int getNumberOfAdjacentMines(Pair<Integer, Integer> posButton);
 
     Set<Cell> getAdjacentCells(Pair<Integer, Integer> pos);
 }

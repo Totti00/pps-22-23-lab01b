@@ -36,8 +36,8 @@ public class LogicsImpl implements Logics {
 
     @Override
     public boolean checkWin() {
-        return this.grid.getCells().stream().filter(cell -> cell.hasMine() && !cell.isHit()).count() +
-                this.grid.getCells().stream().filter(cell -> !cell.hasMine() && cell.isHit()).count() == this.getCells().size();
+        return this.grid.getCells().stream().filter(cell -> cell.hasMine() && cell.canBeHit()).count() +
+                this.grid.getCells().stream().filter(cell -> !cell.hasMine() && !cell.canBeHit()).count() == this.getCells().size();
 
     }
 

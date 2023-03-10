@@ -5,6 +5,8 @@ public interface Cell {
 
     void setMine();
 
+    CellType getType();
+
     Pair<Integer, Integer> getPosition();
 
     boolean canBeHit();
@@ -17,11 +19,5 @@ public interface Cell {
 
     void placeFlag();
 
-    boolean isHit();
-
     boolean isAdjacent(Pair<Integer, Integer> posButton);
-
-    void incrementAdjacentMines();
-
-    int getAdjacentMines();
 }
