@@ -48,18 +48,19 @@ public class CellImpl implements Cell {
 
     @Override
     public void removeFlag() {
-        //this.type.equals(CellType.FLAG_MINE) ? this.type = CellType.MINE : this.type = CellType.EMPTY;
-        switch (this.type) {
-            case FLAG_MINE -> this.type = CellType.MINE;
-            case FLAG_EMPTY -> this.type = CellType.EMPTY;
+        if (this.type.equals(CellType.FLAG_EMPTY)) {
+            this.type = CellType.EMPTY;
+        } else {
+            this.type = CellType.MINE;
         }
     }
 
     @Override
     public void placeFlag() {
-        switch (this.type) {
-            case MINE -> this.type = CellType.FLAG_MINE;
-            case EMPTY -> this.type = CellType.FLAG_EMPTY;
+        if (this.type.equals(CellType.MINE)) {
+            this.type = CellType.FLAG_MINE;
+        } else {
+            this.type = CellType.FLAG_EMPTY;
         }
     }
 

@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.event.MouseInputAdapter;
 import javax.swing.event.MouseInputListener;
 
+import java.io.Serial;
 import java.util.*;
 import java.util.Map.Entry;
 import java.awt.*;
@@ -12,6 +13,7 @@ import java.awt.event.MouseEvent;
 
 public class GUI extends JFrame {
     
+    @Serial
     private static final long serialVersionUID = -6218820567019985015L;
     private final Map<JButton,Pair<Integer,Integer>> buttons = new HashMap<>();
     private final Logics logics;
@@ -82,25 +84,22 @@ public class GUI extends JFrame {
     }
 
     private void drawBoard() {
-        for (var entry: this.buttons.entrySet()) {
-            final JButton bt = entry.getKey();
-            final Pair<Integer,Integer> pos = entry.getValue();
+        this.buttons.forEach((bt, pos) -> {
             if (this.logics.hasFlag(pos) && bt.isEnabled()) {
                 bt.setText("F");
             } else if (!this.logics.hasFlag(pos) && bt.isEnabled()) {
                 bt.setText(" ");
-            } else if (!bt.isEnabled() && bt.getText().equals(" ")){
+            } else if (!bt.isEnabled() && bt.getText().equals(" ")) {
                 final int numberOfAdjacentMines = this.logics.getAdjacentCells(pos).stream().filter(Cell::hasMine).toArray().length;
                 bt.setText(String.valueOf(numberOfAdjacentMines));
                 if (numberOfAdjacentMines == 0) {
-                    this.logics.getAdjacentCells(pos).forEach( cell -> {
-                            this.logics.hit(cell.getPosition());
-                            this.buttons.entrySet().stream().filter(entry2 -> entry2.getValue().equals(cell.getPosition())).forEach(entry2 -> entry2.getKey().setEnabled(false));
+                    this.logics.getAdjacentCells(pos).forEach(cell -> {
+                        this.logics.hit(cell.getPosition());
+                        this.buttons.entrySet().stream().filter(entry2 -> entry2.getValue().equals(cell.getPosition())).forEach(entry2 -> entry2.getKey().setEnabled(false));
                     });
                     drawBoard();
                 }
             }
-        }
+        });
     }
-    
 }
