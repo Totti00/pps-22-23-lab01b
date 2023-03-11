@@ -23,10 +23,10 @@ public interface Logics {
     /**
      * Hit a cell
      *
-     * @param posCellWithMine the position of the cell to hit
+     * @param positionCell the position of the cell to hit
      * @return true if the cell has a mine, false otherwise
      */
-    boolean hit(Pair<Integer, Integer> posCellWithMine);
+    boolean hit(Pair<Integer, Integer> positionCell);
 
     /**
      * Check if the game is won
