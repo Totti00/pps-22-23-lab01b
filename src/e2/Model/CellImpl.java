@@ -1,4 +1,6 @@
-package e2;
+package e2.Model;
+
+import e2.Pair;
 
 public class CellImpl implements Cell {
     private final Pair<Integer, Integer> posCell;

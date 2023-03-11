@@ -1,5 +1,9 @@
 package e2;
 
+import e2.Model.Cell;
+import e2.Model.Grid;
+import e2.Model.GridImpl;
+
 import java.util.Set;
 
 public class LogicsImpl implements Logics {

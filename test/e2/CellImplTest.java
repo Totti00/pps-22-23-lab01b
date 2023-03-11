@@ -1,5 +1,8 @@
 package e2;
 
+import e2.Model.Cell;
+import e2.Model.CellImpl;
+import e2.Model.CellType;
 import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;

@@ -1,4 +1,6 @@
-package e2;
+package e2.Model;
+
+import e2.Pair;
 
 import java.util.HashSet;
 import java.util.Set;
